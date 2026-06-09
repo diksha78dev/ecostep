@@ -3,7 +3,7 @@ import { CONSTANTS, PLEDGES, SYSTEM_PROMPT } from '../js/config.js';
 describe('Config & Constants Module', () => {
   describe('CONSTANTS', () => {
     test('1. MODEL is defined correctly', () => {
-      expect(CONSTANTS.MODEL).toBe('gemini-2.5-flash');
+      expect(CONSTANTS.MODEL).toBe('gemini-1.5-flash');
     });
     test('2. API_URL points to Google API', () => {
       expect(CONSTANTS.API_URL).toContain('generativelanguage.googleapis.com');
