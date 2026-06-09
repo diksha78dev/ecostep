@@ -1,5 +1,5 @@
 export const CONSTANTS = {
-  MODEL: 'gemini-1.5-flash',
+  MODEL: 'gemini-2.5-flash',
   API_URL: 'https://generativelanguage.googleapis.com/v1beta/models',
   MAX_TOKENS: 1000,
   MAX_INPUT_LEN: 500,
