@@ -18,7 +18,7 @@ export function escapeHtml(str) {
  * @returns {string} Safe, rendered HTML string.
  */
 export function formatAiReply(text) {
-  let safeHtml = text;
+  let safeHtml;
   // If DOMPurify is loaded via CDN in index.html, use it for 100% safe rendering
   if (window.DOMPurify) {
     safeHtml = window.DOMPurify.sanitize(text);
@@ -51,7 +51,8 @@ export function switchTab(tabId) {
   if (panel) { panel.classList.add('active'); panel.hidden = false; }
   if (tab)   { tab.classList.add('active');   tab.setAttribute('aria-selected', 'true'); }
   } catch (err) {
-    // Graceful failure handled silently
+    // Graceful failure handled silently to prevent UI blocking
+    if (err) return;
   }
 }
 

@@ -182,8 +182,8 @@ async function sendMessage() {
         const parsed = JSON.parse(dataMatch[1].trim());
         Store.saveFootprint(parsed);
         renderDashboard(parsed);
-      } catch (parseErr) {
-        
+      } catch {
+        addMessage('ai', '*Received an unreadable format from the AI coach. Please try again.*');
       }
     }
   } catch (err) {
