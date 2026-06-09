@@ -1,0 +1,18 @@
+{
+  "name": "ecostep",
+  "version": "1.0.0",
+  "description": "AI-powered carbon footprint awareness platform for India — Hack2Skill India Runs Hackathon",
+  "main": "index.html",
+  "scripts": {
+    "test": "node tests/ecostep.test.js",
+    "start": "npx serve . --listen 3000",
+    "lint": "npx eslint app.js --env browser,es2021"
+  },
+  "keywords": ["carbon-footprint", "sustainability", "india", "ai", "climate"],
+  "author": "Diksha",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "devDependencies": {}
+}
