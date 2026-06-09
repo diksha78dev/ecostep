@@ -82,7 +82,7 @@ export function renderDashboard(footprintData) {
       <div class="metric-card glass">
         <div class="metric-label">Gamification Level</div>
         <div class="metric-value" style="font-size:16px">${userLevel}</div>
-        <button id="downloadReportBtn" class="download-btn" style="margin-top:5px;font-size:12px">⬇️ Download Report</button>
+        <button id="downloadReportBtn" class="download-btn"><i class="ti ti-download"></i> Download Report</button>
       </div>
     </div>
 
