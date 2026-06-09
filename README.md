@@ -1,11 +1,11 @@
 # EcoStep — AI Carbon Footprint Coach for India
 
-> **Hack2Skill "India Runs" Hackathon · Challenge 3: Carbon Footprint Awareness Platform**
+> **Hack2Skill PromptWars · Challenge 3: Carbon Footprint Awareness Platform**
 
 [![Tests](https://img.shields.io/badge/tests-31%20passed-brightgreen)](#testing)
 [![License](https://img.shields.io/badge/license-MIT-green)](#license)
 
-**Live demo:** _[Add your Vercel/Netlify URL here after deployment]_
+**Live demo:** https://diksha78dev.github.io/ecostep
 
 ---
 
@@ -192,4 +192,4 @@ MIT — free to use, modify, and deploy.
 
 ---
 
-*Built by Diksha · B.Tech CSE, Rajarambapu Institute of Technology, Islampur · GSSoC '26 Mentor · ECWoC Top Contributor (Rank 24/5000+)*
+*Built by Diksha · B.Tech CSE, Rajarambapu Institute of Technology, Islampur ·*
