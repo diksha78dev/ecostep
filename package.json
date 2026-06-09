@@ -5,14 +5,23 @@
   "type": "module",
   "main": "index.html",
   "scripts": {
-    "test": "node tests/ecostep.test.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "lint": "npx eslint js/ --env browser,es2021"
   },
-  "keywords": ["carbon-footprint", "sustainability", "india", "ai", "climate"],
+  "keywords": [
+    "carbon-footprint",
+    "sustainability",
+    "india",
+    "ai",
+    "climate"
+  ],
   "author": "Diksha",
   "license": "MIT",
   "engines": {
     "node": ">=16.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "jest": "^30.4.2",
+    "jest-environment-jsdom": "^30.4.1"
+  }
 }
