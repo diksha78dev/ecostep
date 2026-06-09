@@ -5,7 +5,7 @@
 [![Tests](https://img.shields.io/badge/tests-31%20passed-brightgreen)](#testing)
 [![License](https://img.shields.io/badge/license-MIT-green)](#license)
 
-**Live demo:** _[Add your Vercel/Netlify URL here after deployment]_
+**Live demo:** _[[Add your Vercel/Netlify URL here after deployment]_](https://diksha78dev.github.io/ecostep)
 
 ---
 
