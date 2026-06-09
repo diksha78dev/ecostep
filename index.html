@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com cdn.jsdelivr.net; font-src fonts.gstatic.com cdn.jsdelivr.net; connect-src https://api.anthropic.com; img-src 'self' data:;"/>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com cdn.jsdelivr.net; font-src fonts.gstatic.com cdn.jsdelivr.net; connect-src https://generativelanguage.googleapis.com; img-src 'self' data:;"/>
   <meta name="description" content="EcoStep — AI-powered carbon footprint coach for India. Calculate, track, and reduce your carbon footprint through personalised conversation."/>
   <meta name="theme-color" content="#3B6D11"/>
   <meta property="og:title" content="EcoStep — Your Carbon Coach"/>
@@ -12,8 +12,9 @@
   <title>EcoStep — Your Carbon Coach</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.0.0/tabler-icons.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.3/purify.min.js"></script>
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
@@ -32,6 +33,7 @@
           <li><a href="#calculator">Calculate</a></li>
           <li><a href="#learn">How it works</a></li>
           <li><a href="#pledge">Pledges</a></li>
+          <li><button id="resetAppBtn" class="btn-outline" style="padding: 6px 12px; font-size: 13px;" title="Reset App & Clear Key">Reset</button></li>
         </ul>
       </nav>
       <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
@@ -40,9 +42,9 @@
     </div>
     <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation" hidden>
       <ul>
-        <li><a href="#calculator" onclick="closeMobileNav()">Calculate</a></li>
-        <li><a href="#learn" onclick="closeMobileNav()">How it works</a></li>
-        <li><a href="#pledge" onclick="closeMobileNav()">Pledges</a></li>
+        <li><a href="#calculator">Calculate</a></li>
+        <li><a href="#learn">How it works</a></li>
+        <li><a href="#pledge">Pledges</a></li>
       </ul>
     </nav>
   </header>
@@ -119,13 +121,13 @@
         <div class="app-shell" role="application" aria-label="EcoStep carbon footprint coach">
 
           <div class="app-tabs" role="tablist" aria-label="App sections">
-            <button class="app-tab active" role="tab" id="tab-chat" aria-controls="panel-chat" aria-selected="true" onclick="switchTab('chat')">
+            <button class="app-tab active" role="tab" id="tab-chat" aria-controls="panel-chat" aria-selected="true">
               <i class="ti ti-messages" aria-hidden="true"></i> <span>Chat with coach</span>
             </button>
-            <button class="app-tab" role="tab" id="tab-dash" aria-controls="panel-dash" aria-selected="false" onclick="switchTab('dash')">
+            <button class="app-tab" role="tab" id="tab-dash" aria-controls="panel-dash" aria-selected="false">
               <i class="ti ti-chart-bar" aria-hidden="true"></i> <span>My footprint</span>
             </button>
-            <button class="app-tab" role="tab" id="tab-pledges" aria-controls="panel-pledges" aria-selected="false" onclick="switchTab('pledges')" id="tab-pledges">
+            <button class="app-tab" role="tab" id="tab-pledges" aria-controls="panel-pledges" aria-selected="false">
               <i class="ti ti-leaf" aria-hidden="true"></i> <span>Pledges</span>
             </button>
           </div>
@@ -135,10 +137,10 @@
             <div class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-label="Conversation with carbon coach" aria-relevant="additions text"></div>
             <div class="quick-btns" aria-label="Quick start options">
               <span class="quick-label" aria-hidden="true">Try:</span>
-              <button class="qbtn" onclick="quickSend('I drive a petrol car daily, about 20 km each way')">Car commuter</button>
-              <button class="qbtn" onclick="quickSend('I use metro and bus, eat vegetarian mostly')">Public transport + veg</button>
-              <button class="qbtn" onclick="quickSend('I fly 3-4 times a year for work')">Frequent flyer</button>
-              <button class="qbtn" onclick="quickSend('Please do a complete carbon footprint analysis for me')">Full analysis ↗</button>
+              <button class="qbtn">Car commuter</button>
+              <button class="qbtn">Public transport + veg</button>
+              <button class="qbtn">Frequent flyer</button>
+              <button class="qbtn">Full analysis ↗</button>
             </div>
             <div class="chat-input-area">
               <label for="chatInput" class="sr-only">Type your message to the carbon coach</label>
@@ -150,10 +152,8 @@
                 maxlength="500"
                 aria-label="Message to carbon coach"
                 aria-describedby="charCount"
-                onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage();}"
-                oninput="updateCharCount(this)"
               />
-              <button class="send-btn" id="sendBtn" onclick="sendMessage()" aria-label="Send message">
+              <button class="send-btn" id="sendBtn" aria-label="Send message">
                 <i class="ti ti-send" aria-hidden="true"></i>
                 <span>Send</span>
               </button>
@@ -169,7 +169,7 @@
               <div class="empty-state">
                 <i class="ti ti-plant-2" aria-hidden="true"></i>
                 <p>Chat with your coach first to see your footprint breakdown here.</p>
-                <button class="btn-outline" onclick="switchTab('chat')">Go to chat →</button>
+                <button class="btn-outline" id="btnGoToChatEmpty">Go to chat →</button>
               </div>
             </div>
           </div>
@@ -230,6 +230,36 @@
     </div>
   </footer>
 
-  <script src="app.js"></script>
+  <!-- API Key Modal -->
+  <div id="apiKeyModal" role="dialog" aria-modal="true" aria-labelledby="apiModalTitle"
+       style="display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px);">
+    <div style="background:#1a2e1a;border:1px solid #3B6D11;border-radius:16px;padding:2rem;max-width:420px;width:90%;box-shadow:0 24px 64px rgba(0,0,0,0.5);">
+      <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;">
+        <div style="width:40px;height:40px;background:#3B6D11;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;">🌿</div>
+        <h2 id="apiModalTitle" style="margin:0;font-size:1.1rem;color:#e8f5e0;">Enter your Gemini API key</h2>
+      </div>
+      <p style="font-size:0.875rem;color:#9dbf88;margin:0 0 1.25rem;line-height:1.6;">EcoStep uses Google Gemini 1.5 Flash — <strong style="color:#b8d4a0;">completely free</strong>, no credit card needed. Get your key in 30 seconds at Google AI Studio.</p>
+      <label for="apiKeyInput" style="display:block;font-size:0.8rem;color:#9dbf88;margin-bottom:0.4rem;">Gemini API Key</label>
+      <input id="apiKeyInput" type="password" placeholder="AIzaSy…"
+             style="width:100%;padding:0.75rem 1rem;background:#0f1f0f;border:1px solid #3B6D11;border-radius:8px;color:#e8f5e0;font-size:0.9rem;outline:none;box-sizing:border-box;" />
+      <p id="apiKeyError" hidden style="color:#ff7b7b;font-size:0.8rem;margin:0.5rem 0 0;"></p>
+      <button id="saveKeyBtn"
+              style="margin-top:1.25rem;width:100%;padding:0.85rem;background:#3B6D11;color:#fff;border:none;border-radius:8px;font-size:0.95rem;font-weight:600;cursor:pointer;transition:background 0.2s;"
+              onmouseover="this.style.background='#4d8f1a'" onmouseout="this.style.background='#3B6D11'">
+        Start coaching →
+      </button>
+      <p style="font-size:0.75rem;color:#6a8f60;text-align:center;margin:0.75rem 0 0;">Get your <strong>free</strong> key at <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener" style="color:#9dbf88;">aistudio.google.com</a> · Key never leaves your machine</p>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+  <script>
+    // Link for empty state to switch tabs
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('btnGoToChatEmpty')?.addEventListener('click', () => {
+        document.getElementById('tab-chat')?.click();
+      });
+    });
+  </script>
 </body>
 </html>
