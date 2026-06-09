@@ -1,6 +1,15 @@
 import { CONSTANTS, SYSTEM_PROMPT } from './config.js';
 import { Store } from './store.js';
 
+/**
+ * Sends a conversation payload to the Google Gemini AI API and parses the JSON response.
+ * Handles rate limits and graceful fallbacks for high demand errors to maintain app resilience.
+ * 
+ * @async
+ * @param {Array<Object>} chatHistory - Array of message objects representing the conversation history.
+ * @returns {Promise<string>} The parsed Markdown/text response from the AI.
+ * @throws {Error} Throws an error if the API key is missing or the network request fails.
+ */
 export async function sendMessageToGemini(chatHistory) {
   const apiKey = Store.getApiKey();
   if (!apiKey) throw new Error("API Key missing");

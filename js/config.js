@@ -1,3 +1,7 @@
+/**
+ * Core application constants defining model limits, API URLs, and storage keys.
+ * @constant {Object}
+ */
 export const CONSTANTS = {
   MODEL: 'gemini-2.5-flash',
   API_URL: 'https://generativelanguage.googleapis.com/v1beta/models',
@@ -10,6 +14,14 @@ export const CONSTANTS = {
   STORAGE_KEY_FOOTPRINT: 'ecostep_footprint'
 };
 
+/**
+ * Predefined actionable pledges for users to reduce their carbon footprint.
+ * @constant {Array<Object>}
+ * @property {string} id - Unique identifier for the pledge.
+ * @property {string} ico - Emoji icon representing the action.
+ * @property {string} title - Human-readable description of the pledge.
+ * @property {number} saving - Estimated CO2 savings in kg per year.
+ */
 export const PLEDGES = [
   { id: 'metro',    ico: '🚇', title: 'Switch to metro/bus once a week',      saving: 52  },
   { id: 'veg',      ico: '🥗', title: 'One meat-free day per week',             saving: 35  },
@@ -25,6 +37,11 @@ export const PLEDGES = [
   { id: 'cycle',    ico: '🚲', title: 'Cycle for trips under 3 km',             saving: 45  },
 ];
 
+/**
+ * The system prompt sent to the Gemini AI to define its behavior, context (India),
+ * and strictly enforce the JSON response structure.
+ * @constant {string}
+ */
 export const SYSTEM_PROMPT = `You are EcoStep, a friendly and encouraging AI carbon footprint coach built specifically for India.
 
 Your goal: help users calculate and understand their annual carbon footprint through natural conversation, then give personalised, actionable advice.

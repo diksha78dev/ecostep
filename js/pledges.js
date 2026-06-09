@@ -2,6 +2,10 @@ import { PLEDGES } from './config.js';
 import { Store } from './store.js';
 import { escapeHtml } from './ui.js';
 
+/**
+ * Renders the actionable pledges into the DOM.
+ * Handles the calculation of total CO2 savings and triggers Gamification level updates.
+ */
 export function renderPledges() {
   const grid = document.getElementById('pledgeGrid');
   if (!grid) return;
@@ -41,25 +45,35 @@ export function renderPledges() {
     });
   });
 
-  updatePledgeSummary(pledgesDone);
+  const totalSavings = PLEDGES
+    .filter(p => pledgesDone.has(p.id))
+    .reduce((acc, p) => acc + p.saving, 0);
+
+  updateSummary(pledgesDone.size, totalSavings);
 }
 
-function updatePledgeSummary(pledgesDone) {
+/**
+ * Updates the summary section with total savings and gamification messaging.
+ * @param {number} count - Number of pledges completed.
+ * @param {number} totalSavings - Total estimated CO2 savings.
+ */
+function updateSummary(count, totalSavings) {
   const summary = document.getElementById('pledgeSummary');
   if (!summary) return;
-
-  const committed = PLEDGES.filter(p => pledgesDone.has(p.id));
-  if (committed.length === 0) {
+  
+  if (count === 0) {
     summary.hidden = true;
     return;
   }
-
-  const totalSaving = committed.reduce((acc, p) => acc + p.saving, 0);
-  const trees       = Math.round(totalSaving / 21);
+  
+  let gamificationMsg = "Keep going! Small steps make a huge difference.";
+  if (count >= 2) gamificationMsg = "Awesome job! You are becoming an Eco-Explorer! 🌿";
+  if (count > 4) gamificationMsg = "Incredible! You are an absolute Eco-Warrior! 🌳";
 
   summary.hidden = false;
-  summary.innerHTML =
-    `You've committed to <strong>${committed.length} action${committed.length !== 1 ? 's' : ''}</strong>. ` +
-    `Potential annual saving: <strong style="color:var(--g600);">${Math.round(totalSaving).toLocaleString('en-IN')} kg CO₂</strong>. ` +
-    `That's equivalent to planting <strong>${trees} trees</strong>! 🌳`;
+  summary.innerHTML = `
+    <p>You have committed to <strong>${count}</strong> actions.</p>
+    <p>Estimated annual savings: <strong style="color:var(--brand);">${totalSavings} kg CO₂</strong></p>
+    <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">${gamificationMsg}</p>
+  `;
 }

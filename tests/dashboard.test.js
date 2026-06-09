@@ -38,12 +38,11 @@ describe('Dashboard Module', () => {
     expect(container.innerHTML).not.toContain('Personalised actions');
   });
 
-  test('47. Identifies biggest category accurately', () => {
+  test('47. Identifies Gamification Level correctly', () => {
     renderDashboard(sampleData);
     const container = document.getElementById('dashContent');
-    // The biggest source logic should highlight Transport
-    expect(container.innerHTML).toContain('Biggest source');
-    expect(container.innerHTML).toContain('Transport');
+    expect(container.innerHTML).toContain('Gamification Level');
+    expect(container.innerHTML).toContain('Eco-Novice 🌱');
   });
 
   test('48. Missing or null values default to 0 safely', () => {

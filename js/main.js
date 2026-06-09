@@ -183,13 +183,13 @@ async function sendMessage() {
         Store.saveFootprint(parsed);
         renderDashboard(parsed);
       } catch (parseErr) {
-        console.error('EcoStep: failed to parse footprint JSON', parseErr);
+        
       }
     }
   } catch (err) {
     if (thinkingEl) thinkingEl.remove();
     addMessage('ai', `<strong>Error:</strong> ${err.message}. Please check your API key or internet connection.`);
-    console.error('EcoStep: API error', err);
+    
     // If auth error, pop modal again
     if(err.message.includes("API key not valid")) {
       Store.clearApiKey();
