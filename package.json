@@ -6,7 +6,7 @@
   "main": "index.html",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "lint": "npx eslint js/ --env browser,es2021"
+    "lint": "npx eslint js/"
   },
   "keywords": [
     "carbon-footprint",
